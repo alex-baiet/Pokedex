@@ -1,15 +1,9 @@
-
-/*
-UTILISER CE FICHIER POUR CREER LES DONNEES SUR LE POSTGRESQL
-INCOMPLET, CLE PRIMAIRES ET CONTRAINTES NON FONCTIONNELS 
-*/
-
 DROP TABLE IF EXISTS Apparait CASCADE;
 DROP TABLE IF EXISTS Apprend CASCADE;
 DROP TABLE IF EXISTS Capacité CASCADE;
 DROP TABLE IF EXISTS Efficacité CASCADE;
 DROP TABLE IF EXISTS Est_doté CASCADE;
-DROP TABLE IF EXISTS Est_pourvue CASCADE;
+DROP TABLE IF EXISTS Est_pourvu CASCADE;
 DROP TABLE IF EXISTS Evolue CASCADE;
 DROP TABLE IF EXISTS Génération CASCADE;
 DROP TABLE IF EXISTS Pokémon CASCADE;
@@ -1257,7 +1251,7 @@ INSERT INTO Apprend (Id_Pokémon, Id_Capacité) VALUES
 
 CREATE TABLE Capacité (
   Id_Capacité integer NOT NULL DEFAULT '0',
-  nom varchar(15) DEFAULT NULL,
+  nom varchar(24) DEFAULT NULL,
   catégorie integer DEFAULT NULL,
   précision integer DEFAULT NULL,
   puissance integer DEFAULT NULL,
@@ -6731,10 +6725,6 @@ INSERT INTO Pokémon (Id_Pokémon, nom, poids, taille) VALUES
 (10156, 'necrozma-dawn', '3500.00', '42.00'),
 (10157, 'necrozma-ultra', '2300.00', '75.00');
 
-/*CREATE TABLE Poke (
-Id_Type integer
-);*/
-
 CREATE TABLE Possède (
   Id_Pokémon integer NOT NULL DEFAULT '0',
   Id_Type integer NOT NULL DEFAULT '0'
@@ -9365,36 +9355,34 @@ INSERT INTO Type (Id_Type, nom) VALUES
 (10001, 'unknown'),
 (10002, 'shadow');
 
-/*DROP TABLE IF EXISTS Poke;*/
 
-/*
 ALTER TABLE Apparait
-  ADD PRIMARY KEY (Id_Pokémon,Id_Génération),
-  ADD KEY Apparait_ibfk_2 (Id_Génération);
+  ADD PRIMARY KEY (Id_Pokémon,Id_Génération);
+--  ADD KEY Apparait_ibfk_2 (Id_Génération);
 
 ALTER TABLE Apprend
-  ADD PRIMARY KEY (Id_Pokémon,Id_Capacité),
-  ADD KEY Apprend_ibfk_2 (Id_Capacité);
+  ADD PRIMARY KEY (Id_Pokémon,Id_Capacité);
+--  ADD KEY Apprend_ibfk_2 (Id_Capacité);
 
 ALTER TABLE Capacité
-  ADD PRIMARY KEY (Id_Capacité),
-  ADD KEY Capacité_ibfk_1 (Id_Type);
+  ADD PRIMARY KEY (Id_Capacité);
+--  ADD KEY Capacité_ibfk_1 (Id_Type);
 
 ALTER TABLE Efficacité
-  ADD PRIMARY KEY (Id_Type,Id_Type_1),
-  ADD KEY Efficacité_ibfk_2 (Id_Type_1);
+  ADD PRIMARY KEY (Id_Type,Id_Type_1);
+--  ADD KEY Efficacité_ibfk_2 (Id_Type_1);
 
 ALTER TABLE Est_doté
-  ADD PRIMARY KEY (Id_Pokémon,Id_Talents),
-  ADD KEY Est_doté_ibfk_2 (Id_Talents);
+  ADD PRIMARY KEY (Id_Pokémon,Id_Talents);
+--  ADD KEY Est_doté_ibfk_2 (Id_Talents);
 
 ALTER TABLE Est_pourvu
-  ADD PRIMARY KEY (Id_Pokémon,Id_Statistiques),
-  ADD KEY Est_pourvu_ibfk_2 (Id_Statistiques);
+  ADD PRIMARY KEY (Id_Pokémon,Id_Statistiques);
+--  ADD KEY Est_pourvu_ibfk_2 (Id_Statistiques);
 
 ALTER TABLE Evolue
-  ADD PRIMARY KEY (Id_Pokémon,Id_Pokémon_1),
-  ADD KEY Id_Pokémon_1 (Id_Pokémon_1);
+  ADD PRIMARY KEY (Id_Pokémon,Id_Pokémon_1);
+--  ADD KEY Id_Pokémon_1 (Id_Pokémon_1);
 
 ALTER TABLE Génération
   ADD PRIMARY KEY (Id_Génération);
@@ -9403,8 +9391,8 @@ ALTER TABLE Pokémon
   ADD PRIMARY KEY (Id_Pokémon);
 
 ALTER TABLE Possède
-  ADD PRIMARY KEY (Id_Pokémon,Id_Type),
-  ADD KEY Possède_ibfk_2 (Id_Type);
+  ADD PRIMARY KEY (Id_Pokémon,Id_Type);
+--  ADD KEY Possède_ibfk_2 (Id_Type);
 
 ALTER TABLE Statistiques
   ADD PRIMARY KEY (Id_Statistiques);
@@ -9415,8 +9403,8 @@ ALTER TABLE Talents
 ALTER TABLE Type
   ADD PRIMARY KEY (Id_Type);
 
-ALTER TABLE Statistiques
-  MODIFY Id_Statistiques integer NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=801;
+/*ALTER TABLE Statistiques
+  MODIFY Id_Statistiques integer NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=801;*/
 
 ALTER TABLE Apparait
   ADD CONSTRAINT Apparait_ibfk_1 FOREIGN KEY (Id_Pokémon) REFERENCES Pokémon (Id_Pokémon) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -9444,4 +9432,3 @@ ALTER TABLE Est_pourvu
 ALTER TABLE Possède
   ADD CONSTRAINT Possède_ibfk_2 FOREIGN KEY (Id_Type) REFERENCES Type (Id_Type) ON UPDATE CASCADE,
   ADD CONSTRAINT Possède_ibfk_1 FOREIGN KEY (Id_Pokémon) REFERENCES Pokémon (Id_Pokémon) ON UPDATE CASCADE;
-*/

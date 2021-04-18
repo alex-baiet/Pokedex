@@ -1,0 +1,132 @@
+              Liste des relations
+ Schéma  |     Nom      | Type  | Propriétaire
+---------+--------------+-------+--------------
+ project | apparait     | table | abaiet
+ project | apprend      | table | abaiet
+ project | capacité     | table | abaiet
+ project | efficacité   | table | abaiet
+ project | est_doté     | table | abaiet
+ project | est_pourvu   | table | abaiet
+ project | evolue       | table | abaiet
+ project | génération   | table | abaiet
+ project | pokémon      | table | abaiet
+ project | possède      | table | abaiet
+ project | statistiques | table | abaiet
+ project | talents      | table | abaiet
+ project | type         | table | abaiet
+
+
+                     Table « project.apparait »
+    Colonne    |  Type   | Collationnement | NULL-able | Par défaut
+---------------+---------+-----------------+-----------+------------
+ id_pokémon    | integer |                 | not null  | 0
+ id_génération | integer |                 | not null  | 0
+
+
+                    Table « project.apprend »
+   Colonne   |  Type   | Collationnement | NULL-able | Par défaut
+-------------+---------+-----------------+-----------+------------
+ id_pokémon  | integer |                 | not null  | 0
+ id_capacité | integer |                 | not null  | 0
+
+
+                                 Table « project.capacité »
+   Colonne   |         Type          | Collationnement | NULL-able |       Par défaut
+
+-------------+-----------------------+-----------------+-----------+-------------------------
+ id_capacité | integer               |                 | not null  | 0
+ nom         | character varying(15) |                 |           | NULL::character varying
+ catégorie   | integer               |                 |           |
+ précision   | integer               |                 |           |
+ puissance   | integer               |                 |           |
+ pp          | integer               |                 |           |
+ id_type     | integer               |                 | not null  |
+
+
+                                     Table « project.efficacité »
+       Colonne        |         Type          | Collationnement | NULL-able |       Par défaut
+----------------------+-----------------------+-----------------+-----------+-------------------------
+ id_type              | integer               |                 | not null  | 0
+ id_type_1            | integer               |                 | not null  | 0
+ facteur_d_efficacité | character varying(50) |                 |           | NULL::character varying
+
+
+                   Table « project.est_doté »
+  Colonne   |  Type   | Collationnement | NULL-able | Par défaut
+------------+---------+-----------------+-----------+------------
+ id_pokémon | integer |                 | not null  | 0
+ id_talents | integer |                 | not null  | 0
+ est_caché  | integer |                 | not null  |
+
+
+                     Table « project.est_pourvu »
+     Colonne     |  Type   | Collationnement | NULL-able | Par défaut
+-----------------+---------+-----------------+-----------+------------
+ id_pokémon      | integer |                 | not null  | 0
+ id_statistiques | integer |                 | not null  | 0
+
+
+                     Table « project.evolue »
+   Colonne    |  Type   | Collationnement | NULL-able | Par défaut
+--------------+---------+-----------------+-----------+------------
+ id_pokémon   | integer |                 | not null  | 0
+ id_pokémon_1 | integer |                 | not null  | 0
+
+
+                                 Table « project.génération »
+    Colonne    |         Type          | Collationnement | NULL-able |       Par défaut
+---------------+-----------------------+-----------------+-----------+-------------------------
+ id_génération | integer               |                 | not null  | 0
+ nom           | character varying(20) |                 |           | NULL::character varying
+ date_sortie   | integer               |                 |           |
+
+
+                                 Table « project.pokémon »
+  Colonne   |         Type          | Collationnement | NULL-able |       Par défaut
+------------+-----------------------+-----------------+-----------+-------------------------
+ id_pokémon | integer               |                 | not null  | 0
+ nom        | character varying(50) |                 |           | NULL::character varying
+ poids      | numeric(15,2)         |                 |           | NULL::numeric
+ taille     | numeric(15,2)         |                 |           | NULL::numeric
+
+
+                    Table « project.possède »
+  Colonne   |  Type   | Collationnement | NULL-able | Par défaut
+------------+---------+-----------------+-----------+------------
+ id_pokémon | integer |                 | not null  | 0
+ id_type    | integer |                 | not null  | 0
+
+
+                    Table « project.statistiques »
+     Colonne     |  Type   | Collationnement | NULL-able | Par défaut
+-----------------+---------+-----------------+-----------+------------
+ id_statistiques | integer |                 | not null  |
+ hp              | integer |                 |           |
+ def             | integer |                 |           |
+ atq             | integer |                 |           |
+ spe_atq         | integer |                 |           |
+ spe_def         | integer |                 |           |
+ vit             | integer |                 |           |
+
+
+  Colonne   |         Type          | Collationnement | NULL-able |       Par défaut
+------------+-----------------------+-----------------+-----------+-------------------------
+ id_talents | integer               |                 | not null  | 0
+ nom        | character varying(32) |                 |           | NULL::character varying
+
+
+ Colonne |         Type          | Collationnement | NULL-able |       Par défaut
+---------+-----------------------+-----------------+-----------+-------------------------
+ id_type | integer               |                 | not null  | 0
+ nom     | character varying(20) |                 |           | NULL::character varying
+
+
+
+
+
+
+
+
+
+
+

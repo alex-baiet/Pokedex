@@ -1,0 +1,32 @@
+SCHEMA SITE
+
+Index
+  Connexion a son compte de BDD (penser a utiliser le cryptage dans le code)
+    <- Retour a l'index
+
+  Choisir un pokemon (choix par génération, ordre alphabetique, num du pokedex, type, en utilisant une zone de recherche)
+    Informations sur le pokemon
+
+  Choisir une capacité (choix par type, ordre alphabetique, génération (si c possible), num de CT, recherche)
+    information sur la capacité
+
+  Ajouter un pokemon a sa BDD personnalisé (si l'utilisateur est connecté) par un formulaire
+    <- Retour au formulaire avec un message de succès/d'erreur.
+
+  Ajouter un capacité a sa BDD personnalisé (si l'utilisateur est connecté) par un formulaire
+    <- Retour au formulaire avec un message de succès/d'erreur.
+
+____________________________________________________________
+
+A FAIRE
+
+SQL
+x ajouter les contraintes (ils sont mis en commentaires pcq c cassé)
+- ajouter la possibilité de stocker les images des pokemon (si possible)
+
+HTML / CSS / PHP
+- faire le site (todo à développer en sous-parties)
+
+Autres
+- faire un rapport pdf
+- Faire un schema du site pas en txt moche comme au-dessus

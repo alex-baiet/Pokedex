@@ -5740,6 +5740,8 @@ CREATE TABLE Génération (
 );
 
 INSERT INTO Génération (Id_Génération, nom, date_sortie) VALUES
+(-1, 'personal', 0),
+(0, 'unknown', 0),
 (1, 'generation-i', 1996),
 (2, 'generation-ii', 1999),
 (3, 'generation-iii', 2002),
@@ -9034,6 +9036,7 @@ CREATE TABLE Talents (
 ) ;
 
 INSERT INTO Talents (Id_Talents, nom) VALUES
+(0, '-- unknown --'),
 (1, 'stench'),
 (2, 'drizzle'),
 (3, 'speed-boost'),
@@ -9334,6 +9337,7 @@ CREATE TABLE Type (
 ) ;
 
 INSERT INTO Type (Id_Type, nom) VALUES
+(0, '-- unknown --'),
 (1, 'normal'),
 (2, 'fighting'),
 (3, 'flying'),
@@ -9352,7 +9356,6 @@ INSERT INTO Type (Id_Type, nom) VALUES
 (16, 'dragon'),
 (17, 'dark'),
 (18, 'fairy'),
-(10001, 'unknown'),
 (10002, 'shadow');
 
 

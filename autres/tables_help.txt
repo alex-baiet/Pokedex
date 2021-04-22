@@ -191,6 +191,13 @@ Référencé par :
     TABLE ""possède"" CONSTRAINT "possède_ibfk_2" FOREIGN KEY (id_type) REFERENCES type(id_type) ON UPDATE CASCADE
 
 
+                           Table « project.users »
+ Colonne  |          Type          | Collationnement | NULL-able | Par défaut
+----------+------------------------+-----------------+-----------+------------
+ name     | character varying(32)  |                 | not null  |
+ password | character varying(256) |                 | not null  |
+Index :
+    "users_pkey" PRIMARY KEY, btree (name)
 
 
 

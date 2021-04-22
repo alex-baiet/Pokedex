@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+  // A mettre : info de base, (in)efficacité face au type
+?>
+
+<!-- PARTIE HTML -->
 <html>
 <head>
   <meta charset="utf-8">

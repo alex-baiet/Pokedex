@@ -2,32 +2,39 @@
 
 <?php
   include("php/connexion.inc.php");
+  $prefix = "";
 
   // Affiche la liste des pokemons dans la BDD.
   function listPokemon() {
     global $pdo;
+    global $prefix;
 
     // Récupération des données
     $result = $pdo->query("
       SELECT id_pokémon AS id, 
              nom AS name
-      FROM pokémon 
+      FROM ".$prefix."pokémon 
       ;");
 
     // Affichage des pokémons
     echo '<div class="list_search">';
     while ($pokemon = $result->fetch()) {
       echo '
-        <form method="get" action="pokemon_infos.php" class="list_unit">
+        <form method="post" action="pokemon_infos.php" class="list_unit">
           <div class="display_none">
             <input type="number" name="id_pokemon" value="'.$pokemon["id"].'">
           </div>
           <button type=submit>
             '.$pokemon["id"].' - '.$pokemon["name"].'
           </button>
+          <input name="prefix" value="'.$prefix.'" hidden>
         </form>';
     }
     echo "</div>";
+  }
+
+  if (isset($_POST["use_user_data"]) && isset($_COOKIE["user"])) {
+    $prefix = $_COOKIE["user"]."_";
   }
 ?>
 

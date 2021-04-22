@@ -2,15 +2,17 @@
 
 <?php
   include("php/connexion.inc.php");
-  $id = $_GET["id_pokemon"];
+  $id = $_POST["id_pokemon"];
+  $prefix = $_POST["prefix"];
 
   function pokemonExist() {
     global $pdo;
+    global $prefix;
     global $id;
 
     $result = $pdo->query("
       SELECT * 
-      FROM pokémon
+      FROM ".$prefix."pokémon
       WHERE id_pokémon=".$id."
       ;");
 
@@ -19,18 +21,19 @@
   
   pokemonExist();
   // Vérification que l'on a un pokémon a traiter
-  if (empty($_GET["id_pokemon"]) || !pokemonExist()) {
+  if (empty($_POST["id_pokemon"]) || !pokemonExist()) {
     header("location:pokemon_list.php");
   }
 
   // Ecrit les informations de base du pokémon 
   function printInfoBasic() {
     global $pdo;
+    global $prefix;
     global $id;
 
     $result = $pdo->query("
       SELECT * 
-      FROM pokémon
+      FROM ".$prefix."pokémon
       WHERE id_pokémon=".$id."
       ;");
     $pokemon = $result->fetch();
@@ -60,12 +63,13 @@
 
   function printStats() {
     global $pdo;
+    global $prefix;
     global $id;
 
     $result = $pdo->query("
       SELECT * 
-      FROM est_pourvu AS has,
-           statistiques AS stat
+      FROM ".$prefix."est_pourvu AS has,
+           ".$prefix."statistiques AS stat
       WHERE stat.id_statistiques = has.id_statistiques
         AND has.id_pokémon = ".$id."
       ;");
@@ -104,12 +108,13 @@
 
   function getTypes() {
     global $pdo;
+    global $prefix;
     global $id;
 
     return $pdo->query("
       SELECT *
       FROM type,
-           possède AS possess
+           ".$prefix."possède AS possess
       WHERE type.id_type = possess.id_type
         AND possess.id_pokémon = ".$id."
       ;");
@@ -118,6 +123,7 @@
 
   function printTypes() {
     global $pdo;
+    global $prefix;
     global $id;
 
     $result = getTypes();
@@ -139,17 +145,27 @@
 
   function printGeneration() {
     global $pdo;
+    global $prefix;
     global $id;
 
-    $result = $pdo->query("
-      SELECT *
-      FROM génération AS gen,
-           apparait AS spawn
-      WHERE gen.id_génération = spawn.id_génération
-        AND spawn.id_pokémon = ".$id."
-      ;");
-    
-    $gen = $result->fetch();
+    $gen;
+    if (!$prefix) {
+      $result = $pdo->query("
+        SELECT *
+        FROM génération AS gen,
+             apparait AS spawn
+        WHERE gen.id_génération = spawn.id_génération
+          AND spawn.id_pokémon = ".$id."
+        ;");
+      
+      $gen = $result->fetch();
+      $result->closeCursor();
+    } else {
+      $gen = array(
+        "nom" => "personnal",
+        "date_sortie" => "",
+      );
+    }
 
     echo '
       <table class="pokemon_stats">
@@ -164,17 +180,17 @@
       </table>
       ';
 
-    $result->closeCursor();
   }
 
   function printTalents() {
     global $pdo;
+    global $prefix;
     global $id;
 
     $result = $pdo->query("
       SELECT talents.nom,
              has.est_caché
-      FROM est_doté AS has,
+      FROM ".$prefix."est_doté AS has,
            talents
       WHERE has.id_talents = talents.id_talents
         AND has.id_pokémon = ".$id."
@@ -202,6 +218,7 @@
 
   function getTypeByEfficiency(int $id_type, int $efficiency=100) {
     global $pdo;
+    global $prefix;
 
     return $pdo->query("
       SELECT type.id_type,
@@ -216,6 +233,7 @@
 
   function printWeakness() {
     global $pdo;
+    global $prefix;
     global $id;
 
     // Initialisation des variables
@@ -280,7 +298,6 @@
   ?>
 
   <content>
-
     <?php 
       printInfoBasic(); 
       printStats();
@@ -289,7 +306,6 @@
       printTalents();
       printWeakness();
     ?>
-
   </content>
 </body>
 </html>

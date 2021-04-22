@@ -12,8 +12,14 @@ if (isset($_COOKIE["user"])) { // Cas utilisateur connecté
           <div class="header_sublist">
             <a href="disconnect_account.php">Se déconnecter</a><br>
             <a href="pokemon_create.php">Créer un pokémon</a><br>
-            <a href="pokemon_list.php">Vos pokémons</a><br>
-            <a href="capacity_list.php">Vos capacités</a>
+            <!--<a href="pokemon_list.php">Vos pokémons</a>-->
+            <a>
+              Vos pokémons
+              <form method="post" action="pokemon_list.php">
+                <button type="submit"></button>
+                <input name="use_user_data" value="1" hidden>
+              </form>
+            </a>
           </div>
         </div>
       </div>

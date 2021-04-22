@@ -21,6 +21,11 @@
 ---------------+---------+-----------------+-----------+------------
  id_pokémon    | integer |                 | not null  | 0
  id_génération | integer |                 | not null  | 0
+Index :
+    "apparait_pkey" PRIMARY KEY, btree ("id_pokémon", "id_génération")
+Contraintes de clés étrangères :
+    "apparait_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    "apparait_ibfk_2" FOREIGN KEY ("id_génération") REFERENCES "génération"("id_génération") ON UPDATE CASCADE
 
 
                     Table « project.apprend »
@@ -28,6 +33,11 @@
 -------------+---------+-----------------+-----------+------------
  id_pokémon  | integer |                 | not null  | 0
  id_capacité | integer |                 | not null  | 0
+Index :
+    "apprend_pkey" PRIMARY KEY, btree ("id_pokémon", "id_capacité")
+Contraintes de clés étrangères :
+    "apprend_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    "apprend_ibfk_2" FOREIGN KEY ("id_capacité") REFERENCES "capacité"("id_capacité") ON UPDATE CASCADE
 
 
                                  Table « project.capacité »
@@ -35,12 +45,18 @@
 
 -------------+-----------------------+-----------------+-----------+-------------------------
  id_capacité | integer               |                 | not null  | 0
- nom         | character varying(15) |                 |           | NULL::character varying
+ nom         | character varying(24) |                 |           | NULL::character varying
  catégorie   | integer               |                 |           |
  précision   | integer               |                 |           |
  puissance   | integer               |                 |           |
  pp          | integer               |                 |           |
  id_type     | integer               |                 | not null  |
+Index :
+    "capacité_pkey" PRIMARY KEY, btree ("id_capacité")
+Contraintes de clés étrangères :
+    "capacité_ibfk_1" FOREIGN KEY (id_type) REFERENCES type(id_type) ON UPDATE CASCADE
+Référencé par :
+    TABLE "apprend" CONSTRAINT "apprend_ibfk_2" FOREIGN KEY ("id_capacité") REFERENCES "capacité"("id_capacité") ON UPDATE CASCADE
 
 
                                      Table « project.efficacité »
@@ -49,6 +65,11 @@
  id_type              | integer               |                 | not null  | 0
  id_type_1            | integer               |                 | not null  | 0
  facteur_d_efficacité | character varying(50) |                 |           | NULL::character varying
+Index :
+    "efficacité_pkey" PRIMARY KEY, btree (id_type, id_type_1)
+Contraintes de clés étrangères :
+    "efficacité_ibfk_1" FOREIGN KEY (id_type) REFERENCES type(id_type) ON UPDATE CASCADE
+    "efficacité_ibfk_2" FOREIGN KEY (id_type_1) REFERENCES type(id_type) ON UPDATE CASCADE
 
 
                    Table « project.est_doté »
@@ -57,6 +78,11 @@
  id_pokémon | integer |                 | not null  | 0
  id_talents | integer |                 | not null  | 0
  est_caché  | integer |                 | not null  |
+Index :
+    "est_doté_pkey" PRIMARY KEY, btree ("id_pokémon", id_talents)
+Contraintes de clés étrangères :
+    "est_doté_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    "est_doté_ibfk_2" FOREIGN KEY (id_talents) REFERENCES talents(id_talents) ON UPDATE CASCADE
 
 
                      Table « project.est_pourvu »
@@ -64,6 +90,11 @@
 -----------------+---------+-----------------+-----------+------------
  id_pokémon      | integer |                 | not null  | 0
  id_statistiques | integer |                 | not null  | 0
+Index :
+    "est_pourvu_pkey" PRIMARY KEY, btree ("id_pokémon", id_statistiques)
+Contraintes de clés étrangères :
+    "est_pourvu_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    "est_pourvu_ibfk_2" FOREIGN KEY (id_statistiques) REFERENCES statistiques(id_statistiques) ON UPDATE CASCADE
 
 
                      Table « project.evolue »
@@ -71,6 +102,8 @@
 --------------+---------+-----------------+-----------+------------
  id_pokémon   | integer |                 | not null  | 0
  id_pokémon_1 | integer |                 | not null  | 0
+Index :
+    "evolue_pkey" PRIMARY KEY, btree ("id_pokémon", "id_pokémon_1")
 
 
                                  Table « project.génération »
@@ -79,15 +112,28 @@
  id_génération | integer               |                 | not null  | 0
  nom           | character varying(20) |                 |           | NULL::character varying
  date_sortie   | integer               |                 |           |
+Index :
+    "génération_pkey" PRIMARY KEY, btree ("id_génération")
+Référencé par :
+    TABLE "apparait" CONSTRAINT "apparait_ibfk_2" FOREIGN KEY ("id_génération") REFERENCES "génération"("id_génération") ON UPDATE CASCADE
 
 
                                  Table « project.pokémon »
   Colonne   |         Type          | Collationnement | NULL-able |       Par défaut
+
 ------------+-----------------------+-----------------+-----------+-------------------------
  id_pokémon | integer               |                 | not null  | 0
  nom        | character varying(50) |                 |           | NULL::character varying
  poids      | numeric(15,2)         |                 |           | NULL::numeric
  taille     | numeric(15,2)         |                 |           | NULL::numeric
+Index :
+    "pokémon_pkey" PRIMARY KEY, btree ("id_pokémon")
+Référencé par :
+    TABLE "apparait" CONSTRAINT "apparait_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    TABLE "apprend" CONSTRAINT "apprend_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    TABLE ""est_doté"" CONSTRAINT "est_doté_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    TABLE "est_pourvu" CONSTRAINT "est_pourvu_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    TABLE ""possède"" CONSTRAINT "possède_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
 
 
                     Table « project.possède »
@@ -95,6 +141,11 @@
 ------------+---------+-----------------+-----------+------------
  id_pokémon | integer |                 | not null  | 0
  id_type    | integer |                 | not null  | 0
+Index :
+    "possède_pkey" PRIMARY KEY, btree ("id_pokémon", id_type)
+Contraintes de clés étrangères :
+    "possède_ibfk_1" FOREIGN KEY ("id_pokémon") REFERENCES "pokémon"("id_pokémon") ON UPDATE CASCADE
+    "possède_ibfk_2" FOREIGN KEY (id_type) REFERENCES type(id_type) ON UPDATE CASCADE
 
 
                     Table « project.statistiques »
@@ -107,18 +158,37 @@
  spe_atq         | integer |                 |           |
  spe_def         | integer |                 |           |
  vit             | integer |                 |           |
+Index :
+    "statistiques_pkey" PRIMARY KEY, btree (id_statistiques)
+Référencé par :
+    TABLE "est_pourvu" CONSTRAINT "est_pourvu_ibfk_2" FOREIGN KEY (id_statistiques) REFERENCES statistiques(id_statistiques) ON UPDATE CASCADE
 
 
+                                 Table « project.talents »
   Colonne   |         Type          | Collationnement | NULL-able |       Par défaut
+
 ------------+-----------------------+-----------------+-----------+-------------------------
  id_talents | integer               |                 | not null  | 0
  nom        | character varying(32) |                 |           | NULL::character varying
+Index :
+    "talents_pkey" PRIMARY KEY, btree (id_talents)
+Référencé par :
+    TABLE ""est_doté"" CONSTRAINT "est_doté_ibfk_2" FOREIGN KEY (id_talents) REFERENCES talents(id_talents) ON UPDATE CASCADE
 
 
+                                 Table « project.type »
  Colonne |         Type          | Collationnement | NULL-able |       Par défaut
+
 ---------+-----------------------+-----------------+-----------+-------------------------
  id_type | integer               |                 | not null  | 0
  nom     | character varying(20) |                 |           | NULL::character varying
+Index :
+    "type_pkey" PRIMARY KEY, btree (id_type)
+Référencé par :
+    TABLE ""capacité"" CONSTRAINT "capacité_ibfk_1" FOREIGN KEY (id_type) REFERENCES type(id_type) ON UPDATE CASCADE
+    TABLE ""efficacité"" CONSTRAINT "efficacité_ibfk_1" FOREIGN KEY (id_type) REFERENCES type(id_type) ON UPDATE CASCADE
+    TABLE ""efficacité"" CONSTRAINT "efficacité_ibfk_2" FOREIGN KEY (id_type_1) REFERENCES type(id_type) ON UPDATE CASCADE
+    TABLE ""possède"" CONSTRAINT "possède_ibfk_2" FOREIGN KEY (id_type) REFERENCES type(id_type) ON UPDATE CASCADE
 
 
 

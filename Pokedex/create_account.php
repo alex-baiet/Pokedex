@@ -11,8 +11,8 @@
       && !empty($_POST["confirm_password"])) 
     {
       $user = $_POST["new_user"]; // La variable $user existe déjà par défaut.
-      $pass = $_POST["new_password"];
-      $confirm = $_POST["confirm_password"];
+      $pass = md5($_POST["new_password"]);
+      $confirm = md5($_POST["confirm_password"]);
 
       // Vérification du nouveau code.
       if ($pass != $confirm) {
@@ -52,7 +52,7 @@
 <head>
   <meta charset="utf-8">
   <title>Connection</title>
-  <link rel="stylesheet" type="text/css" href="css/main_style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>

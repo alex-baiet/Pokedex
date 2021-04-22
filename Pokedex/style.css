@@ -88,7 +88,7 @@ header {
 
 .header_sublist {
   position: absolute;
-  width: 100%;
+  width: 182px;
   top: 100%;
   height: 0;
 
@@ -130,8 +130,45 @@ hr {
 }
 /*Fin header*/
 
+/*Liste pokemon / capacité*/
+/* Containeur de la liste entière. */
+.list_search {
+  position: relative;
+}
+
+/*Containeur de chaque pokémon*/
+.list_unit {
+  position: relative;
+  width: 100%;
+}
+
+.list_unit > button {
+  width: 100%;
+  height: 100%;
+}
+
+.list
+/*Fin Liste pokemon / capacité*/
+
 /*Autre*/
 .error {
   font-size: bold;
   color: #ff2020;
+}
+
+.display_none {
+  display: none;
+}
+
+table {
+  border-width: 1px;
+  border-style: solid;
+}
+
+table td, table th {
+  text-align: right;
+}
+
+td + td, th + th {
+  text-align: left;
 }

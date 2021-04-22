@@ -10,12 +10,15 @@
   <pre>
     <?php
       include("php/connexion.inc.php");
-      $result = $pdo->query("SELECT * FROM Génération;");
+      $result = $pdo->query("SELECT * FROM evolue;");
 
       while ($line = $result->fetch()) {
         print_r($line);
       }
       $result->closeCursor();
+    ?>
+
+    <?php
     ?>
   </pre>
 </body>

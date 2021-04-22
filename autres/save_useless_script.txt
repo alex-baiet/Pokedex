@@ -1,0 +1,62 @@
+Code pour récupérer la famille des pokemon, mais la table evolue est fausse...
+<?php
+
+  function getPokemonChild($id_pokemon) {
+    global $pdo;
+
+    $result = $pdo->query("
+      SELECT id_pokémon AS id_child
+      FROM evolue
+      WHERE id_pokémon_1 = ".$id_pokemon."
+      ;");
+
+    if (!$result) return false;
+
+    $result = $result->fetch();
+    return $result["id_child"];
+  }
+
+  function getPokemonParent($id_pokemon) {
+    global $pdo;
+
+    $result = $pdo->query("
+      SELECT id_pokémon_1 AS id_parent
+      FROM evolue
+      WHERE id_pokémon = ".$id_pokemon."
+      ;");
+
+    if (!$result) return false;
+
+    $result = $result->fetch();
+    return $result["id_parent"];
+  }
+
+  function printFamily() {
+    global $pdo;
+    global $id;
+
+    $min = 0;
+    $max = 0;
+
+    // array allant contenir toute la famille.
+    $family = array(0 => $id);
+
+    while($child = getPokemonChild($family[$min])) {
+      $min--;
+      $family[$min] = $child;
+    }
+
+    while($parent = getPokemonParent($family[$max])) {
+      $max++;
+      $family[$max] = $parent;
+    }
+
+    echo '<table class="pokemon_family"';
+    for ($i=$min; $i <= $max; $i++) {
+      echo '
+        <tr><td>'.$family[$i].'</td></tr>';
+    }
+    echo '</table>';
+  }
+
+?>

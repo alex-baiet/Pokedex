@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Pokédex</title>
-  <link rel="stylesheet" type="text/css" href="css/main_style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>

@@ -10,7 +10,7 @@
       && !empty($_POST["password"]) ) 
     {
       $user = $_POST["user"]; // La variable $user existe déjà par défaut.
-      $pass = $_POST["password"];
+      $pass = md5($_POST["password"]);
 
       // Récupération du mot de passe de l'utilisateur
       include("php/connexion.inc.php");
@@ -52,7 +52,7 @@
 <head>
   <meta charset="utf-8">
   <title>Connection</title>
-  <link rel="stylesheet" type="text/css" href="css/main_style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>

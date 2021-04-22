@@ -33,13 +33,18 @@
     $users = getUsers();
 
     while ($user = $users->fetch()) {
-      $t1 = $user["name"]."-pokémon";
-      $t2 = $user["name"]."-statistiques";
-      $t3 = $user["name"]."-est_pourvu";
+      // A mettre dans une array pour plus de place
+      $t1 = $user["name"]."_pokémon";
+      $t2 = $user["name"]."_statistiques";
+      $t3 = $user["name"]."_est_pourvu";
+      $t3 = $user["name"]."_est_doté";
+      $t3 = $user["name"]."_possède";
 
       echo "DROP de ".$t1." : ".dropTable($t1)."\n";
       echo "DROP de ".$t2." : ".dropTable($t2)."\n";
-      echo "DROP de ".$t3." : ".dropTable($t3)."\n\n";
+      echo "DROP de ".$t3." : ".dropTable($t3)."\n";
+      echo "DROP de ".$t4." : ".dropTable($t4)."\n";
+      echo "DROP de ".$t5." : ".dropTable($t5)."\n\n";
     }
     $users->closeCursor();
     

@@ -2,8 +2,51 @@
 
 <?php
   include("php/cookie_life.inc.php");
+  include("php/connexion.inc.php");
+
+  function createTableUser(string $user) {
+    global $pdo;
+    echo $pdo->exec("
+      CREATE TABLE ".$user."_pokémon (
+        Id_Pokémon integer PRIMARY KEY NOT NULL DEFAULT '0',
+        nom varchar(50) DEFAULT NULL,
+        poids decimal(15,2) DEFAULT NULL,
+        taille decimal(15,2) DEFAULT NULL
+      );");
+
+    echo $pdo->exec("
+      CREATE TABLE ".$user."_statistiques (
+        Id_Statistiques integer PRIMARY KEY NOT NULL,
+        hp integer DEFAULT NULL,
+        def integer DEFAULT NULL,
+        atq integer DEFAULT NULL,
+        spe_atq integer DEFAULT NULL,
+        spe_def integer DEFAULT NULL,
+        vit integer DEFAULT NULL
+      );");
+
+    echo $pdo->exec("
+      CREATE TABLE ".$user."_est_pourvu (
+        Id_Pokémon integer NOT NULL DEFAULT '0',
+        Id_Statistiques integer NOT NULL DEFAULT '0'
+      );");
+
+    echo $pdo->exec("
+      CREATE TABLE ".$user."_est_doté (
+        Id_Pokémon integer NOT NULL DEFAULT '0',
+        Id_Talents integer NOT NULL DEFAULT '0',
+        est_caché integer NOT NULL
+      );");
+    
+    echo $pdo->exec("
+      CREATE TABLE ".$user."_possède (
+        Id_Pokémon integer NOT NULL DEFAULT '0',
+        Id_Type integer NOT NULL DEFAULT '0'
+      );");
+  }
 
   function addUser() {
+    global $pdo;
 
     // Vérification que le formulaire a bien été entré.
     if (!empty($_POST["new_user"]) 
@@ -20,7 +63,6 @@
       }
 
       // (Tentative d')enregistrement du nouveau compte. 
-      include("php/connexion.inc.php");
       $result = $pdo->exec("
         INSERT INTO users VALUES 
         ('".$user."', '".$pass."')
@@ -31,9 +73,13 @@
         return "L'utilisateur ".$user." existe déjà !<br>Utilisez un autre nom.";
       }
 
+      // APRES CE STADE, TOUT EST VERIFIE
+      // Création des tables
+      createTableUser($user);
+
       // Connection au compte et retour à la page d'acceuil.
       setcookie("user", $user, time()+COOKIE_LIFE);
-      header("location:index.php");
+      //header("location:index.php");
     }
   }
 

@@ -28,7 +28,7 @@
 
       // Vérification du mdp.
       if ($pass !== $true_pass["password"]) {
-        return "Les deux mot de passe entrés ne sont pas identiques.";
+        return "Le mot de passe est mauvais.";
       }
 
       // Connection au compte et retour à la page d'acceuil.

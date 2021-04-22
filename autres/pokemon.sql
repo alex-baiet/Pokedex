@@ -2343,7 +2343,7 @@ CREATE TABLE Est_doté (
   Id_Pokémon integer NOT NULL DEFAULT '0',
   Id_Talents integer NOT NULL DEFAULT '0',
   est_caché integer NOT NULL
-) ;
+);
 
 INSERT INTO Est_doté (Id_Pokémon, Id_Talents, est_caché) VALUES
 (1, 34, 1),
@@ -4517,7 +4517,7 @@ INSERT INTO Est_doté (Id_Pokémon, Id_Talents, est_caché) VALUES
 CREATE TABLE Est_pourvu (
   Id_Pokémon integer NOT NULL DEFAULT '0',
   Id_Statistiques integer NOT NULL DEFAULT '0'
-) ;
+);
 
 INSERT INTO Est_pourvu (Id_Pokémon, Id_Statistiques) VALUES
 (1, 1),
@@ -5756,10 +5756,6 @@ CREATE TABLE Pokémon (
   poids decimal(15,2) DEFAULT NULL,
   taille decimal(15,2) DEFAULT NULL
 );
-
---
--- Contenu de la table Pokémon
---
 
 INSERT INTO Pokémon (Id_Pokémon, nom, poids, taille) VALUES
 (1, 'bulbasaur', '69.00', '7.00'),
@@ -8226,7 +8222,7 @@ CREATE TABLE Statistiques (
   spe_atq integer DEFAULT NULL,
   spe_def integer DEFAULT NULL,
   vit integer DEFAULT NULL
-) ;
+);
 
 INSERT INTO Statistiques (Id_Statistiques, hp, def, atq, spe_atq, spe_def, vit) VALUES
 (1, 45, 49, 49, 65, 65, 45),

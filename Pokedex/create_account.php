@@ -6,6 +6,7 @@
 
   function createTableUser(string $user) {
     global $pdo;
+    
     echo $pdo->exec("
       CREATE TABLE ".$user."_pokémon (
         Id_Pokémon integer PRIMARY KEY NOT NULL DEFAULT '0',
@@ -30,18 +31,18 @@
         Id_Pokémon integer NOT NULL DEFAULT '0',
         Id_Statistiques integer NOT NULL DEFAULT '0'
       );");
+    
+    echo $pdo->exec("
+      CREATE TABLE ".$user."_possède (
+        Id_Pokémon integer NOT NULL DEFAULT '0',
+        Id_Type integer NOT NULL DEFAULT '0'
+      );");
 
     echo $pdo->exec("
       CREATE TABLE ".$user."_est_doté (
         Id_Pokémon integer NOT NULL DEFAULT '0',
         Id_Talents integer NOT NULL DEFAULT '0',
         est_caché integer NOT NULL
-      );");
-    
-    echo $pdo->exec("
-      CREATE TABLE ".$user."_possède (
-        Id_Pokémon integer NOT NULL DEFAULT '0',
-        Id_Type integer NOT NULL DEFAULT '0'
       );");
   }
 
@@ -79,7 +80,7 @@
 
       // Connection au compte et retour à la page d'acceuil.
       setcookie("user", $user, time()+COOKIE_LIFE);
-      //header("location:index.php");
+      header("location:index.php");
     }
   }
 

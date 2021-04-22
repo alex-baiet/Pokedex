@@ -102,17 +102,25 @@
       ';
   }
 
-  function printTypes() {
+  function getTypes() {
     global $pdo;
     global $id;
 
-    $result = $pdo->query("
-      SELECT type.nom
+    return $pdo->query("
+      SELECT *
       FROM type,
            possède AS possess
       WHERE type.id_type = possess.id_type
         AND possess.id_pokémon = ".$id."
       ;");
+    
+  }
+
+  function printTypes() {
+    global $pdo;
+    global $id;
+
+    $result = getTypes();
     
     echo '<table class="pokemon_types">';
     $count = 0;
@@ -192,7 +200,70 @@
 
   }
 
-  //capacité, faiblesse pokemon
+  function getTypeByEfficiency(int $id_type, int $efficiency=100) {
+    global $pdo;
+
+    return $pdo->query("
+      SELECT type.id_type,
+             type.nom
+      FROM efficacité AS efficiency,
+           type
+      WHERE efficiency.id_type = type.id_type
+        AND efficiency.id_type_1 = ".$id_type."
+        AND efficiency.facteur_d_efficacité = ".$efficiency."
+      ;");
+  }
+
+  function printWeakness() {
+    global $pdo;
+    global $id;
+
+    // Initialisation des variables
+    $result = getTypes();
+    $type_array = array();
+    while ($type = $result->fetch()) {
+      $type_array[] = $type["id_type"];
+    }
+    $result->closeCursor();
+
+    $effic_array = array(
+      "Sans effet" => 0,
+      "Résistance" => 50,
+      "Faiblesse" => 200,
+      "test" => 999
+    );
+    
+    $type_result;
+    
+    echo '<table class="pokemon_resistances">';
+    foreach ($effic_array as $eff_name => $eff_val) { // Pour chaque efficacité possible
+      // Récupération des types de cette efficacité
+      $type_result = array();
+      foreach ($type_array as $id_type) {
+        $result = getTypeByEfficiency($id_type, $eff_val);
+
+        while ($t = $result->fetch()) {
+          $type_result[$t["id_type"]] = $t["nom"];
+        }
+        $result->closeCursor();
+      }
+
+      // Affichage des résultats
+      if (count($type_result) != 0) {
+        echo '<tr><th>'.$eff_name.'</th><td>';
+        $first = true;
+        foreach($type_result as $t) {
+          if ($first) { $first = false; } 
+          else { echo ', '; }
+          echo $t;
+        }
+        $result->closeCursor();
+        echo '<td></tr>';
+      }
+    }
+    echo '</table>';
+  }
+
 ?>
 
 <!-- PARTIE HTML -->
@@ -216,6 +287,7 @@
       printTypes();
       printGeneration();
       printTalents();
+      printWeakness();
     ?>
 
   </content>

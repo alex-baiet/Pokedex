@@ -60,3 +60,44 @@ Code pour récupérer la famille des pokemon, mais la table evolue est fausse...
   }
 
 ?>
+
+Ecrit toutes les capacités apprenable par le pokemon, mais...
+- on connait pas les capacités apprenables par tous les pokemons
+- meme en trouvant les données, ca créerais un table beaucoup trop lourde
+  (~1000 pokemons * ~50 capacité apprenable par pokemon = beaucoup trop)
+<?php
+  function printCapacity() {
+    global $pdo;
+    global $id;
+
+    $result = $pdo->query("
+      SELECT capacity.nom AS capacity_name,
+             type.nom AS type_name
+      FROM apprend,
+           capacité AS capacity,
+           type
+      WHERE apprend.id_capacité = capacity.id_capacité
+        AND capacity.id_type = type.id_type
+        AND apprend.id_pokémon = ".$id."
+      ;");
+    
+    echo '
+      <table class="pokemon_talents">
+        <tr>
+          <th>Capacité</th>
+          <th>Type</th>
+        </tr>';
+    if ($result) {
+      while($capa = $result->fetch()) {
+        echo '
+          <tr>
+            <td>'.$capa["capacity_name"].'</td>
+            <td>'.$capa["type_name"].'</td>
+          </tr>';
+      }
+      $result->closeCursor();
+    }
+    echo '</table>';
+
+  }
+?>

@@ -60,11 +60,11 @@ Référencé par :
 
 
                                      Table « project.efficacité »
-       Colonne        |         Type          | Collationnement | NULL-able |       Par défaut
-----------------------+-----------------------+-----------------+-----------+-------------------------
+       Colonne        |         Type          | Collationnement | NULL-able | Par défaut
+----------------------+-----------------------+-----------------+-----------+------------
  id_type              | integer               |                 | not null  | 0
  id_type_1            | integer               |                 | not null  | 0
- facteur_d_efficacité | character varying(50) |                 |           | NULL::character varying
+ facteur_d_efficacité | integer               |                 | not null  | 100
 Index :
     "efficacité_pkey" PRIMARY KEY, btree (id_type, id_type_1)
 Contraintes de clés étrangères :

@@ -88,7 +88,7 @@
   function printError() {
     global $error;
     if (!is_null($error)) {
-      echo '<p class="error">'.$error.'</p>';
+      echo '<div class="error">'.$error.'</div>';
     }
   }
 
@@ -98,7 +98,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Connection</title>
+  <title>Créer un compte</title>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 

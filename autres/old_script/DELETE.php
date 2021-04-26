@@ -1,3 +1,5 @@
+<!-- Ce script supprime les données de tous les utilisateurs, ainsi que leurs comptes. -->
+
 <!DOCTYPE html>
 <?php
   include("php/connexion.inc.php");
@@ -37,8 +39,8 @@
       $t1 = $user["name"]."_pokémon";
       $t2 = $user["name"]."_statistiques";
       $t3 = $user["name"]."_est_pourvu";
-      $t3 = $user["name"]."_est_doté";
-      $t3 = $user["name"]."_possède";
+      $t4 = $user["name"]."_est_doté";
+      $t5 = $user["name"]."_possède";
 
       echo "DROP de ".$t1." : ".dropTable($t1)."\n";
       echo "DROP de ".$t2." : ".dropTable($t2)."\n";
@@ -68,12 +70,15 @@
 
   <content>
     <form method="post" action="DELETE.php">
-      <button name="confirm" value="1">Confirmer la suppression de tous les utilisateurs</button>
+      <button name="confirm" value="1">
+        Confirmer la suppression de tous les utilisateurs.
+        CETTE ACTION EST IRREVERSIBLE !
+      </button>
     </form>
 
     <pre>
       <?php 
-        if (isset($_FORM["confirm"]) && $_FORM["confirm"] == 1) deleteAll(); 
+        if (isset($_POST["confirm"]) && $_POST["confirm"] == 1) deleteAll(); 
         else echo "Rien ne s'est passé pour le moment. MAIS ATTENTION !";
       ?>
     </pre>

@@ -41,7 +41,7 @@
   function printError() {
     global $error;
     if (!is_null($error)) {
-      echo '<p class="error">'.$error.'</p>';
+      echo '<div class="error">'.$error.'</div>';
     }
   }
 
@@ -66,7 +66,7 @@
       <input type="text" name="user" id="user"><br>
 
       <label for="password">Mot de passe : </label>
-      <input type="text" name="password" id="password"><br>
+      <input type="password" name="password" id="password"><br>
 
       <button type="submit">Se connecter</button>
     </form>

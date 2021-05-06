@@ -1,18 +1,19 @@
 
-/*@font-face {
+@font-face {
   font-family: "pokemon";
   font-style: italic;
   font-weight: bold;
-  src: url('./font/pokemon/Pokemon Solid.ttf');
-}*/
+  src: url('./font/pokemon.ttf');
+}
 
 html {
-  font-family: "Berlin Sans FB"; /* A changer */
+  font-family: "pokemon"; /* A changer */
 }
 
 body {
   margin: 0;
   padding: 0;
+  background: url('./img/body_bg.png');
 }
 
 h1 {

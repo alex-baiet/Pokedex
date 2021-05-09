@@ -186,6 +186,7 @@
     include("php/header.inc.php")
   ?>
   <content>
+    <div class="txt">
     <h2>Option de tri</h2>
     <!-- par generation, par alphabet, par type, poids, taille -->
     <form method="get" action="pokemon_list.php">
@@ -203,10 +204,13 @@
     <!-- Zone de recherche (?) -->
 
     <h2>Liste des pokémons</h2>
+  </div>
     <!-- Ici raccourci vers les différentes parties (non intégrées) -->
 
     <!-- List des pokémons -->
+    <div class="list">
     <?php listPokemon(); ?>
+  </div>
   </content>
   
 </body>

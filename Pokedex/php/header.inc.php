@@ -12,7 +12,7 @@ if (isset($_COOKIE["user"])) { // Cas utilisateur connecté
   echo '
     <div class="header_elem_side">
       <span>'.$_COOKIE["user"].'</span>
-      <div class="header_sublist">
+      <div class="header_sublist create">
         <a href="disconnect_account.php">Se déconnecter</a><br>
         <a href="pokemon_create.php">Créer un pokémon</a><br>
         <a>

@@ -58,7 +58,7 @@
 <body>
   <?php include("php/header.inc.php")?>
 
-  <content>
+  <div class="txt">
     <h2>Connection</h2>
     <?php printError() ?>
     <form action="connect_account.php" method="post">
@@ -76,7 +76,7 @@
       vous pouvez en créer un ici :<br>
       <a href="create_account.php">Créer un compte</a>
     </p>
-  </content>
+  </div>
 
 </body>
 </html>

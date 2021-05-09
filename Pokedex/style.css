@@ -7,7 +7,7 @@
 }
 
 html {
-  font-family: "pokemon"; /* A changer */
+  font-family: "pokemon";
 }
 
 body {
@@ -182,12 +182,47 @@ hr {
 table {
   border-width: 1px;
   border-style: solid;
+  background-color: rgba(206, 206, 206, 0.69);
+  background-image:url('./img/container_bg.png');
+  border-radius: 5px;
+  max-width: 60vw;
 }
 
 table td, table th {
-  text-align: right;
+  text-align: left;
 }
 
 td + td, th + th {
   text-align: left;
+}
+.info{
+  display: grid;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-columns: 40% 20% 40%;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.pokemon_resistences td{
+  border:5px solid black;
+}
+.txt{
+  background-color: rgba(206, 206, 206, 0.69);
+  background-image:url('./img/container_bg.png');
+  margin-left: auto;
+}
+/*Fix creer un pokemon qui depasse*/
+.create{
+  min-height: 200px;
+}
+.list button{
+  max-width: 35vw;
+  margin-left: 35vw;
+}
+.list_unit{
+  align-items: center;
+}
+button{
+  background-color: rgba(206, 206, 206, 0.3);
+  background-image:url('./img/container_bg.png');
 }

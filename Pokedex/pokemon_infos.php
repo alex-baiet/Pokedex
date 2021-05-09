@@ -135,7 +135,7 @@
       echo '
         <tr>
           <td>Type '.$count.'</td>
-          <td>'.$type["nom"].'</td>
+          <td><img src="img/types/'.$type["nom"].'.png"></td>
         </tr>';
     }
     echo '</table>';
@@ -273,10 +273,10 @@
         foreach($type_result as $t) {
           if ($first) { $first = false; } 
           else { echo ', '; }
-          echo $t;
+          echo '<img src="img/types/'.$t.'.png">';
         }
         $result->closeCursor();
-        echo '<td></tr>';
+        echo '</td></tr>';
       }
     }
     echo '</table>';
@@ -297,13 +297,13 @@
     include("php/header.inc.php");
   ?>
 
-  <content>
+  <content class="info">
     <?php 
       printInfoBasic(); 
-      printStats();
       printTypes();
-      printGeneration();
+      printStats();
       printTalents();
+      printGeneration();
       printWeakness();
     ?>
   </content>

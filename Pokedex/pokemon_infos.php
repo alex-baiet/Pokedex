@@ -60,6 +60,10 @@
       </table>
     ';
   }
+  function printImage() {
+    global $id;
+    echo '<img class ="pokemonIcon" src="img/pokemon/icons/'.$id.'.png">';
+  }
 
   function printStats() {
     global $pdo;
@@ -299,6 +303,7 @@
 
   <content class="info">
     <?php 
+      printImage();
       printInfoBasic(); 
       printTypes();
       printStats();

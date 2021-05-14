@@ -244,3 +244,9 @@ button{
   background-color: rgba(206, 206, 206, 0.3);
   background-image:url('./img/container_bg.png');
 }
+.leftArrow{
+  position: relative;
+}
+.rightArrow{
+  position: relative;
+}

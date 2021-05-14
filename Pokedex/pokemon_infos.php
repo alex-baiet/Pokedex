@@ -219,7 +219,61 @@
     echo '</table>';
 
   }
-
+  function getEvolution(){
+    global $pdo;
+    global $id;
+    global $prefix;
+    return $pdo->query("
+      SELECT id_pokémon
+      FROM evolue
+      WHERE id_pokémon_1=".$id."
+      ;
+      ");
+  }
+  function getUnderEvolution(){
+    global $pdo;
+    global $id;
+    global $prefix;
+    return $pdo->query("
+      SELECT id_pokémon_1
+      FROM evolue
+      WHERE id_pokémon=".$id."
+      ;
+      ");
+  }
+  function displayArrowEvolution(){
+    global $pdo;
+    global $id;
+    global $prefix;
+    $result = getUnderEvolution();
+    $poke=$result->fetch()[0];
+    if ($result == true and $poke !=0) {
+      echo '
+    <form method="post" name="poke_info1" action="pokemon_infos.php">
+    <div class="display_none">
+    <input type="number" name="id_pokemon" value="'.$poke.'">
+    <input type="number" name="prefix" value="'.$prefix.'">
+    </div>
+    <div class="leftArrow">
+    <a href="javascript:javascript: submitform1();"><img src="img/left_arrow.png"></a>
+    <img src="img/pokemon/icons/'.$poke.'.png">
+    </div></form>';
+    }
+    $result2 = getEvolution();
+    $poke2=$result2->fetch()[0];
+    if ($result2 == true and $poke2!=0) {
+      echo '
+    <form method="post" name="poke_info2" action="pokemon_infos.php">
+    <div class="display_none">
+    <input type="number" name="id_pokemon" value="'.$poke2.'">
+    <input type="number" name="prefix" value="'.$prefix.'">
+    </div>
+    <div class="rightArrow">
+    <a href="javascript: submitform2();"><img src="img/right_arrow.png"></a>
+    <img src="img/pokemon/icons/'.$poke2.'.png">
+    </div></form>';
+    }
+  }
   function getTypeByEfficiency(int $id_type, int $efficiency=100) {
     global $pdo;
     global $prefix;
@@ -297,6 +351,14 @@
 </head>
 
 <body>
+	<script type="text/javascript">
+		function submitform1() {
+			document.poke_info1.submit();
+		}
+		function submitform2() {
+			document.poke_info2.submit();
+		}
+	</script>
   <?php
     include("php/header.inc.php");
   ?>
@@ -310,6 +372,7 @@
       printTalents();
       printGeneration();
       printWeakness();
+      displayArrowEvolution();
     ?>
   </content>
 </body>

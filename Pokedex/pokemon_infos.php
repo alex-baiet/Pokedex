@@ -62,7 +62,8 @@
   }
   function printImage() {
     global $id;
-    echo '<img class ="pokemonIcon" src="img/pokemon/icons/'.$id.'.png">';
+    global $prefix;
+    if (empty($prefix)) echo '<img class ="pokemonIcon" src="img/pokemon/icons/'.$id.'.png">';
   }
 
   function printStats() {
@@ -245,33 +246,36 @@
     global $pdo;
     global $id;
     global $prefix;
-    $result = getUnderEvolution();
-    $poke=$result->fetch()[0];
-    if ($result == true and $poke !=0) {
+
+    if (empty($prefix)) {
+      $result = getUnderEvolution();
+      $poke=$result->fetch()[0];
+      if ($result == true and $poke !=0) {
+        echo '
+          <form method="post" name="poke_info1" action="pokemon_infos.php">
+          <div class="display_none">
+          <input type="number" name="id_pokemon" value="'.$poke.'">
+          <input type="number" name="prefix" value="'.$prefix.'">
+          </div>
+          <div class="leftArrow">
+          <a href="javascript:javascript: submitform1();"><img src="img/left_arrow.png"></a>
+          <img src="img/pokemon/icons/'.$poke.'.png">
+          </div></form>';
+      }
+      $result2 = getEvolution();
+      $poke2=$result2->fetch()[0];
+      if ($result2 == true and $poke2!=0) {
       echo '
-    <form method="post" name="poke_info1" action="pokemon_infos.php">
-    <div class="display_none">
-    <input type="number" name="id_pokemon" value="'.$poke.'">
-    <input type="number" name="prefix" value="'.$prefix.'">
-    </div>
-    <div class="leftArrow">
-    <a href="javascript:javascript: submitform1();"><img src="img/left_arrow.png"></a>
-    <img src="img/pokemon/icons/'.$poke.'.png">
-    </div></form>';
-    }
-    $result2 = getEvolution();
-    $poke2=$result2->fetch()[0];
-    if ($result2 == true and $poke2!=0) {
-      echo '
-    <form method="post" name="poke_info2" action="pokemon_infos.php">
-    <div class="display_none">
-    <input type="number" name="id_pokemon" value="'.$poke2.'">
-    <input type="number" name="prefix" value="'.$prefix.'">
-    </div>
-    <div class="rightArrow">
-    <a href="javascript: submitform2();"><img src="img/right_arrow.png"></a>
-    <img src="img/pokemon/icons/'.$poke2.'.png">
-    </div></form>';
+        <form method="post" name="poke_info2" action="pokemon_infos.php">
+        <div class="display_none">
+        <input type="number" name="id_pokemon" value="'.$poke2.'">
+        <input type="number" name="prefix" value="'.$prefix.'">
+        </div>
+        <div class="rightArrow">
+        <a href="javascript: submitform2();"><img src="img/right_arrow.png"></a>
+        <img src="img/pokemon/icons/'.$poke2.'.png">
+        </div></form>';
+      }
     }
   }
   function getTypeByEfficiency(int $id_type, int $efficiency=100) {

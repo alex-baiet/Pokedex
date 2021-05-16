@@ -59,14 +59,14 @@
 
         while ($line = $res->fetch()) {
           $req = "
-            SELECT pokémon.id_pokémon AS id,
-                   pokémon.nom AS name
+            SELECT ".$prefix."pokémon.id_pokémon AS id,
+                   ".$prefix."pokémon.nom AS name
             FROM ".$prefix."pokémon,
                  ".$prefix."apparait
-            WHERE pokémon.id_pokémon = apparait.id_pokémon
-              AND pokémon.id_pokémon < 10000
-              AND apparait.id_génération = ".$line["id"]."
-            ORDER BY pokémon.id_pokémon;
+            WHERE ".$prefix."pokémon.id_pokémon = ".$prefix."apparait.id_pokémon
+              AND ".$prefix."pokémon.id_pokémon < 10000
+              AND ".$prefix."apparait.id_génération = ".$line["id"]."
+            ORDER BY ".$prefix."pokémon.id_pokémon;
           ;";
 
           printList($req, $line["name"]);
@@ -78,12 +78,12 @@
         $alphabet = "abcdefghijklmnopqrstuvwxyz";
         for ($i=0; $i<26; $i++) {
           $req = "
-            SELECT pokémon.id_pokémon AS id,
-                   pokémon.nom AS name
+            SELECT ".$prefix."pokémon.id_pokémon AS id,
+                   ".$prefix."pokémon.nom AS name
             FROM ".$prefix."pokémon
-            WHERE pokémon.id_pokémon < 10000
-              AND pokémon.nom LIKE '".$alphabet[$i]."%'
-            ORDER BY pokémon.nom;
+            WHERE ".$prefix."pokémon.id_pokémon < 10000
+              AND ".$prefix."pokémon.nom LIKE '".$alphabet[$i]."%'
+            ORDER BY ".$prefix."pokémon.nom;
           ;";
 
           printList($req, strtoupper($alphabet[$i]));
@@ -99,14 +99,14 @@
 
         while ($line = $res->fetch()) {
           $req = "
-            SELECT pokémon.id_pokémon AS id,
-                   pokémon.nom AS name
+            SELECT ".$prefix."pokémon.id_pokémon AS id,
+                   ".$prefix."pokémon.nom AS name
             FROM ".$prefix."pokémon,
                  ".$prefix."possède
-            WHERE pokémon.id_pokémon = possède.id_pokémon
-              AND pokémon.id_pokémon < 10000
-              AND possède.id_type = ".$line["id"]."
-            ORDER BY pokémon.id_pokémon;
+            WHERE ".$prefix."pokémon.id_pokémon = ".$prefix."possède.id_pokémon
+              AND ".$prefix."pokémon.id_pokémon < 10000
+              AND ".$prefix."possède.id_type = ".$line["id"]."
+            ORDER BY ".$prefix."pokémon.id_pokémon;
           ;";
 
           printList($req, $line["name"]);
@@ -125,12 +125,12 @@
 
         foreach ($weight_array as $weight) {
           $req = "
-            SELECT pokémon.id_pokémon AS id,
-                   pokémon.nom AS name
+            SELECT ".$prefix."pokémon.id_pokémon AS id,
+                   ".$prefix."pokémon.nom AS name
             FROM ".$prefix."pokémon
-            WHERE pokémon.id_pokémon < 10000
-              AND pokémon.poids BETWEEN ".($weight[0]*10)." AND ".($weight[1]*10)."
-            ORDER BY pokémon.poids;
+            WHERE ".$prefix."pokémon.id_pokémon < 10000
+              AND ".$prefix."pokémon.poids BETWEEN ".($weight[0]*10)." AND ".($weight[1]*10)."
+            ORDER BY ".$prefix."pokémon.poids;
           ;";
 
           printList($req, $weight[0]." - ".$weight[1]);
@@ -149,12 +149,12 @@
 
         foreach ($height_array as $height) {
           $req = "
-            SELECT pokémon.id_pokémon AS id,
-                   pokémon.nom AS name
+            SELECT ".$prefix."pokémon.id_pokémon AS id,
+                   ".$prefix."pokémon.nom AS name
             FROM ".$prefix."pokémon
-            WHERE pokémon.id_pokémon < 10000
-              AND pokémon.poids BETWEEN ".($height[0]*10)." AND ".($height[1]*10)."
-            ORDER BY pokémon.poids;
+            WHERE ".$prefix."pokémon.id_pokémon < 10000
+              AND ".$prefix."pokémon.poids BETWEEN ".($height[0]*10)." AND ".($height[1]*10)."
+            ORDER BY ".$prefix."pokémon.poids;
           ;";
 
           printList($req, $height[0]." - ".$height[1]);
@@ -169,7 +169,7 @@
   }
 
 
-  if (isset($_POST["use_user_data"]) && isset($_COOKIE["user"])) {
+  if ((isset($_POST["use_user_data"]) || isset($_GET["use_user_data"])) && isset($_COOKIE["user"])) {
     $prefix = $_COOKIE["user"]."_";
   }
 ?>
@@ -199,6 +199,7 @@
         <option value="height">Taille</option>
       </select>
       <button type="submit">Rechercher</button>
+      <input type="text" name="use_user_data" value="1" hidden>
     </form>
 
     <!-- Zone de recherche (?) -->
@@ -209,8 +210,8 @@
 
     <!-- List des pokémons -->
     <div class="list">
-    <?php listPokemon(); ?>
-  </div>
+      <?php listPokemon(); ?>
+    </div>
   </content>
   
 </body>

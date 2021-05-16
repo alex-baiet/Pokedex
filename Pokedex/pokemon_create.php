@@ -100,6 +100,14 @@
         }
       }
     }
+
+    // INSERT apparait
+    if (!$pdo->exec("
+      INSERT INTO ".$user."_apparait VALUES
+      (".$new_poke.", -1)
+      ;")) {
+      echo "Une erreur est survenu lors de l'insertion des données des talents.";
+    }
   }
 
 
@@ -162,7 +170,8 @@
         for ($i=1; $i <= 4; $i++) { 
           echo createSelectFromSQL($req, "talent".$i, 1, false, 0);
           //echo 'hidden'.$i;
-          echo '<input type="checkbox" name="hidden'.$i.'" value="1"><br>';
+          echo '<input type="checkbox" name="hidden'.$i.'" id="hidden'.$i.'" value="1">
+            <label for="hidden'.$i.'">est caché</label><br>';
         }
       ?>
       <br>

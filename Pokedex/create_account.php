@@ -44,6 +44,13 @@
         Id_Talents integer NOT NULL DEFAULT '0',
         est_caché integer NOT NULL
       );");
+
+    echo $pdo->exec("
+        CREATE TABLE ".$user."_apparait (
+          Id_Pokémon integer NOT NULL DEFAULT '0',
+          Id_Génération integer NOT NULL DEFAULT '0'
+        );
+      ");
   }
 
   function addUser() {

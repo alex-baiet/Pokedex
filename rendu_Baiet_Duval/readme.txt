@@ -1,5 +1,7 @@
 Lien vers le site : 
 https://etudiant.u-pem.fr/~abaiet/pokedex/index.php
 
-Pas besoin de login ou de mot de passe spécifique : 
-vous pouvez créer votre propre compte.
+nom du compte : test
+code du compte : test
+
+Vous pouvez aussi créer votre propre compte facilement 

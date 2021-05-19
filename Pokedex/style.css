@@ -94,7 +94,7 @@ header {
   position: absolute;
   width: 182px;
   top: 100%;
-  height: 0;
+  height: 0px;
 
   overflow: hidden;
   visibility: hidden;
@@ -102,13 +102,14 @@ header {
   border-width: 4px;
   border-color: #ff2020; 
   background-color: #ffffff;
+  transition-property: all;
   transition-duration: 500ms;
   transition-timing-function: ease;
 }
 
 .header_elem_side:hover > .header_sublist {
   visibility: visible;
-  height: 70px;
+  height: 150px;
 }
 
 .header_sublist > *:link {
@@ -230,7 +231,7 @@ td + td, th + th {
   margin-left: auto;
 }
 /*Fix creer un pokemon qui depasse*/
-.create{
+.create { /* inutilisé ? */
   min-height: 200px;
 }
 .list button{

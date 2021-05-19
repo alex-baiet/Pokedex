@@ -82,7 +82,7 @@
                    ".$prefix."pokémon.nom AS name
             FROM ".$prefix."pokémon
             WHERE ".$prefix."pokémon.id_pokémon < 10000
-              AND ".$prefix."pokémon.nom LIKE '".$alphabet[$i]."%'
+              AND LOWER(".$prefix."pokémon.nom) LIKE '".$alphabet[$i]."%'
             ORDER BY ".$prefix."pokémon.nom;
           ;";
 
@@ -169,7 +169,9 @@
   }
 
 
-  if ((isset($_POST["use_user_data"]) || isset($_GET["use_user_data"])) && isset($_COOKIE["user"])) {
+  if ((isset($_POST["use_user_data"])
+      || (isset($_GET["use_user_data"]) && $_GET["use_user_data"]==1)) 
+      && isset($_COOKIE["user"])) {
     $prefix = $_COOKIE["user"]."_";
   }
 ?>
@@ -199,10 +201,11 @@
         <option value="height">Taille</option>
       </select>
       <button type="submit">Rechercher</button>
-      <input type="text" name="use_user_data" value="1" hidden>
+      <?php 
+        if (!empty($prefix)) echo '<input type="text" name="use_user_data" value="1" hidden>';
+        else '<input type="text" name="use_user_data" value="0" hidden>'; 
+      ?>
     </form>
-
-    <!-- Zone de recherche (?) -->
 
     <h2>Liste des pokémons</h2>
   </div>
